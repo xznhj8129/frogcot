@@ -1,0 +1,2 @@
+# frogcot
+CoT Library
