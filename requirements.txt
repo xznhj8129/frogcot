@@ -1,2 +1,3 @@
 pytak >= 6.4.0
-asyncio >= 3.4.3
+xmltodict
+pydantic
