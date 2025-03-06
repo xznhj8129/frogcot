@@ -1,0 +1,1227 @@
+{
+  "bullseye": {
+    "point": {
+      "type": "EventPoint",
+      "required": true,
+      "default": null
+    },
+    "detail": {
+      "type": "Detail",
+      "required": true,
+      "default": null
+    },
+    "version": {
+      "type": "decimal",
+      "required": true,
+      "default": null
+    },
+    "uid": {
+      "type": "string",
+      "required": true,
+      "default": null
+    },
+    "type_value": {
+      "type": "string",
+      "required": true,
+      "default": null
+    },
+    "time": {
+      "type": "XmlDateTime",
+      "required": true,
+      "default": null
+    },
+    "start": {
+      "type": "XmlDateTime",
+      "required": true,
+      "default": null
+    },
+    "stale": {
+      "type": "XmlDateTime",
+      "required": true,
+      "default": null
+    },
+    "how": {
+      "type": "string",
+      "required": true,
+      "default": null
+    }
+  },
+  "chat": {
+    "chat": {
+      "type": "Chat",
+      "required": true,
+      "default": null
+    },
+    "link": {
+      "type": "list of LinkType",
+      "required": false,
+      "default": null
+    },
+    "remarks": {
+      "type": "RemarksType",
+      "required": false,
+      "default": null
+    },
+    "chatreceipt": {
+      "type": "Chatreceipt",
+      "required": false,
+      "default": null
+    },
+    "point": {
+      "type": "EventPoint",
+      "required": true,
+      "default": null
+    },
+    "detail": {
+      "type": "DetailType",
+      "required": true,
+      "default": null
+    },
+    "version": {
+      "type": "float",
+      "required": false,
+      "default": null
+    },
+    "uid": {
+      "type": "string",
+      "required": false,
+      "default": null
+    },
+    "type_value": {
+      "type": "string",
+      "required": false,
+      "default": null
+    },
+    "time": {
+      "type": "XmlDateTime",
+      "required": false,
+      "default": null
+    },
+    "start": {
+      "type": "XmlDateTime",
+      "required": false,
+      "default": null
+    },
+    "stale": {
+      "type": "XmlDateTime",
+      "required": false,
+      "default": null
+    },
+    "how": {
+      "type": "string",
+      "required": false,
+      "default": null
+    },
+    "value": {
+      "type": "string",
+      "required": false,
+      "default": ""
+    },
+    "relation": {
+      "type": "string",
+      "required": false,
+      "default": null
+    },
+    "source": {
+      "type": "string",
+      "required": false,
+      "default": null
+    },
+    "source_id": {
+      "type": "string",
+      "required": false,
+      "default": null
+    },
+    "to": {
+      "type": "string",
+      "required": false,
+      "default": null
+    }
+  },
+  "circle": {
+    "point": {
+      "type": "EventPoint",
+      "required": true,
+      "default": null
+    },
+    "detail": {
+      "type": "Detail",
+      "required": true,
+      "default": null
+    },
+    "version": {
+      "type": "decimal",
+      "required": true,
+      "default": null
+    },
+    "uid": {
+      "type": "string",
+      "required": true,
+      "default": null
+    },
+    "type_value": {
+      "type": "string",
+      "required": false,
+      "default": "u-d-c-c"
+    },
+    "time": {
+      "type": "XmlDateTime",
+      "required": true,
+      "default": null
+    },
+    "start": {
+      "type": "XmlDateTime",
+      "required": true,
+      "default": null
+    },
+    "stale": {
+      "type": "XmlDateTime",
+      "required": true,
+      "default": null
+    },
+    "how": {
+      "type": "string",
+      "required": true,
+      "default": null
+    }
+  },
+  "details": {
+    "hashes": {
+      "type": "object",
+      "required": true,
+      "default": null
+    },
+    "chatgrp": {
+      "type": "Chatgrp",
+      "required": true,
+      "default": null
+    },
+    "hierarchy": {
+      "type": "Hierarchy",
+      "required": false,
+      "default": null
+    },
+    "chatroom": {
+      "type": "object",
+      "required": true,
+      "default": null
+    },
+    "group_owner": {
+      "type": "bool",
+      "required": true,
+      "default": null
+    },
+    "id": {
+      "type": "object",
+      "required": true,
+      "default": null
+    },
+    "parent": {
+      "type": "string",
+      "required": false,
+      "default": null
+    },
+    "sender_callsign": {
+      "type": "string",
+      "required": true,
+      "default": null
+    },
+    "message_id": {
+      "type": "string",
+      "required": false,
+      "default": null
+    },
+    "delete_child": {
+      "type": "string",
+      "required": false,
+      "default": null
+    },
+    "uid0": {
+      "type": "string",
+      "required": true,
+      "default": null
+    },
+    "uid1": {
+      "type": "string",
+      "required": false,
+      "default": null
+    },
+    "uid2": {
+      "type": "string",
+      "required": false,
+      "default": null
+    },
+    "argb": {
+      "type": "int",
+      "required": true,
+      "default": null
+    },
+    "callsign": {
+      "type": "string",
+      "required": false,
+      "default": null
+    },
+    "email_address": {
+      "type": "string",
+      "required": false,
+      "default": null
+    },
+    "endpoint": {
+      "type": "string",
+      "required": false,
+      "default": null
+    },
+    "phone": {
+      "type": "int",
+      "required": false,
+      "default": null
+    },
+    "xmpp_username": {
+      "type": "string",
+      "required": false,
+      "default": null
+    },
+    "value": {
+      "type": "decimal",
+      "required": true,
+      "default": null
+    },
+    "cancel": {
+      "type": "bool",
+      "required": false,
+      "default": null
+    },
+    "type_value": {
+      "type": "string",
+      "required": true,
+      "default": null
+    },
+    "temperature": {
+      "type": "decimal",
+      "required": true,
+      "default": null
+    },
+    "wind_direction": {
+      "type": "decimal",
+      "required": true,
+      "default": null
+    },
+    "wind_speed": {
+      "type": "decimal",
+      "required": true,
+      "default": null
+    },
+    "filename": {
+      "type": "Filename",
+      "required": false,
+      "default": null
+    },
+    "name": {
+      "type": "object",
+      "required": true,
+      "default": null
+    },
+    "sender_uid": {
+      "type": "string",
+      "required": true,
+      "default": null
+    },
+    "sender_url": {
+      "type": "string",
+      "required": true,
+      "default": null
+    },
+    "sha256": {
+      "type": "object",
+      "required": true,
+      "default": null
+    },
+    "size_in_bytes": {
+      "type": "int",
+      "required": true,
+      "default": null
+    },
+    "elevation_monitored": {
+      "type": "bool",
+      "required": true,
+      "default": null
+    },
+    "min_elevation": {
+      "type": "decimal",
+      "required": true,
+      "default": null
+    },
+    "monitor": {
+      "type": "string",
+      "required": true,
+      "default": null
+    },
+    "trigger": {
+      "type": "string",
+      "required": true,
+      "default": null
+    },
+    "tracking": {
+      "type": "bool",
+      "required": true,
+      "default": null
+    },
+    "max_elevation": {
+      "type": "decimal",
+      "required": true,
+      "default": null
+    },
+    "bounding_sphere": {
+      "type": "decimal",
+      "required": true,
+      "default": null
+    },
+    "role": {
+      "type": "object",
+      "required": true,
+      "default": null
+    },
+    "uid": {
+      "type": "object",
+      "required": true,
+      "default": null
+    },
+    "contact": {
+      "type": "list of Contact",
+      "required": false,
+      "default": null
+    },
+    "group": {
+      "type": "Group",
+      "required": true,
+      "default": null
+    },
+    "point": {
+      "type": "string",
+      "required": true,
+      "default": null
+    },
+    "parent_callsign": {
+      "type": "string",
+      "required": false,
+      "default": null
+    },
+    "production_time": {
+      "type": "XmlDateTime",
+      "required": false,
+      "default": null
+    },
+    "relation": {
+      "type": "string",
+      "required": true,
+      "default": null
+    },
+    "remarks": {
+      "type": "string",
+      "required": false,
+      "default": null
+    },
+    "creator_uid": {
+      "type": "CreatorUid",
+      "required": true,
+      "default": null
+    },
+    "hash": {
+      "type": "Hash",
+      "required": true,
+      "default": null
+    },
+    "keywords": {
+      "type": "list of Keywords",
+      "required": false,
+      "default": null
+    },
+    "mime_type": {
+      "type": "MimeType",
+      "required": true,
+      "default": null
+    },
+    "size": {
+      "type": "Size",
+      "required": true,
+      "default": null
+    },
+    "submission_time": {
+      "type": "SubmissionTime",
+      "required": true,
+      "default": null
+    },
+    "submitter": {
+      "type": "Submitter",
+      "required": true,
+      "default": null
+    },
+    "tool": {
+      "type": "string",
+      "required": true,
+      "default": null
+    },
+    "color": {
+      "type": "Color",
+      "required": true,
+      "default": null
+    },
+    "iconset_path": {
+      "type": "string",
+      "required": false,
+      "default": null
+    },
+    "url_data": {
+      "type": "UrlData",
+      "required": true,
+      "default": null
+    },
+    "url_view": {
+      "type": "UrlView",
+      "required": true,
+      "default": null
+    },
+    "mission_changes": {
+      "type": "MissionChanges",
+      "required": false,
+      "default": null
+    },
+    "author_uid": {
+      "type": "string",
+      "required": false,
+      "default": null
+    },
+    "content_resource": {
+      "type": "ContentResource",
+      "required": false,
+      "default": null
+    },
+    "content_uid": {
+      "type": "ContentUid",
+      "required": false,
+      "default": null
+    },
+    "external_data": {
+      "type": "ExternalData",
+      "required": false,
+      "default": null
+    },
+    "mission_name": {
+      "type": "MissionName",
+      "required": true,
+      "default": null
+    },
+    "timestamp": {
+      "type": "Timestamp",
+      "required": true,
+      "default": null
+    },
+    "details": {
+      "type": "Details",
+      "required": false,
+      "default": null
+    },
+    "mission_change": {
+      "type": "MissionChange",
+      "required": true,
+      "default": null
+    },
+    "geopointsrc": {
+      "type": "string",
+      "required": false,
+      "default": null
+    },
+    "altsrc": {
+      "type": "string",
+      "required": true,
+      "default": null
+    },
+    "precise_image_file": {
+      "type": "string",
+      "required": false,
+      "default": null
+    },
+    "precise_image_file_x": {
+      "type": "decimal",
+      "required": false,
+      "default": null
+    },
+    "precise_image_file_y": {
+      "type": "decimal",
+      "required": false,
+      "default": null
+    },
+    "source": {
+      "type": "string",
+      "required": false,
+      "default": null
+    },
+    "source_id": {
+      "type": "string",
+      "required": false,
+      "default": null
+    },
+    "time": {
+      "type": "XmlDateTime",
+      "required": false,
+      "default": null
+    },
+    "to": {
+      "type": "string",
+      "required": false,
+      "default": null
+    },
+    "content": {
+      "type": "list of object",
+      "required": false,
+      "default": null
+    },
+    "destinations": {
+      "type": "object",
+      "required": true,
+      "default": null
+    },
+    "angle": {
+      "type": "int",
+      "required": true,
+      "default": null
+    },
+    "major": {
+      "type": "decimal",
+      "required": true,
+      "default": null
+    },
+    "minor": {
+      "type": "decimal",
+      "required": true,
+      "default": null
+    },
+    "width": {
+      "type": "Width",
+      "required": true,
+      "default": null
+    },
+    "alpha": {
+      "type": "Alpha",
+      "required": false,
+      "default": null
+    },
+    "style": {
+      "type": "Style",
+      "required": false,
+      "default": null
+    },
+    "vertex": {
+      "type": "list of Vertex",
+      "required": false,
+      "default": null
+    },
+    "closed": {
+      "type": "bool",
+      "required": true,
+      "default": null
+    },
+    "polyline": {
+      "type": "Polyline",
+      "required": false,
+      "default": null
+    },
+    "ellipse": {
+      "type": "Ellipse",
+      "required": false,
+      "default": null
+    },
+    "link": {
+      "type": "list of Link",
+      "required": false,
+      "default": null
+    },
+    "line_style": {
+      "type": "LineStyle",
+      "required": true,
+      "default": null
+    },
+    "poly_style": {
+      "type": "PolyStyle",
+      "required": true,
+      "default": null
+    },
+    "hae": {
+      "type": "decimal",
+      "required": true,
+      "default": null
+    },
+    "lat": {
+      "type": "float",
+      "required": true,
+      "default": null
+    },
+    "lon": {
+      "type": "float",
+      "required": true,
+      "default": null
+    },
+    "battery": {
+      "type": "int",
+      "required": false,
+      "default": null
+    },
+    "readiness": {
+      "type": "bool",
+      "required": false,
+      "default": null
+    },
+    "device": {
+      "type": "string",
+      "required": false,
+      "default": null
+    },
+    "os": {
+      "type": "string",
+      "required": false,
+      "default": null
+    },
+    "platform": {
+      "type": "object",
+      "required": true,
+      "default": null
+    },
+    "version": {
+      "type": "string",
+      "required": true,
+      "default": null
+    },
+    "course": {
+      "type": "decimal",
+      "required": true,
+      "default": null
+    },
+    "slope": {
+      "type": "decimal",
+      "required": false,
+      "default": null
+    },
+    "speed": {
+      "type": "decimal",
+      "required": true,
+      "default": null
+    },
+    "droid": {
+      "type": "string",
+      "required": true,
+      "default": null
+    },
+    "nett": {
+      "type": "string",
+      "required": false,
+      "default": null
+    },
+    "iconsetpath": {
+      "type": "object",
+      "required": true,
+      "default": null
+    },
+    "url": {
+      "type": "string",
+      "required": true,
+      "default": null
+    }
+  },
+  "event": {
+    "lat": {
+      "type": "decimal",
+      "required": true,
+      "default": null
+    },
+    "lon": {
+      "type": "decimal",
+      "required": true,
+      "default": null
+    },
+    "hae": {
+      "type": "decimal",
+      "required": true,
+      "default": null
+    },
+    "ce": {
+      "type": "decimal",
+      "required": true,
+      "default": null
+    },
+    "le": {
+      "type": "decimal",
+      "required": true,
+      "default": null
+    }
+  },
+  "freeform": {
+    "point": {
+      "type": "EventPoint",
+      "required": true,
+      "default": null
+    },
+    "detail": {
+      "type": "Detail",
+      "required": true,
+      "default": null
+    },
+    "version": {
+      "type": "decimal",
+      "required": true,
+      "default": null
+    },
+    "uid": {
+      "type": "string",
+      "required": true,
+      "default": null
+    },
+    "type_value": {
+      "type": "string",
+      "required": false,
+      "default": "u-d-f"
+    },
+    "time": {
+      "type": "XmlDateTime",
+      "required": true,
+      "default": null
+    },
+    "start": {
+      "type": "XmlDateTime",
+      "required": true,
+      "default": null
+    },
+    "stale": {
+      "type": "XmlDateTime",
+      "required": true,
+      "default": null
+    },
+    "how": {
+      "type": "string",
+      "required": true,
+      "default": null
+    }
+  },
+  "geofence": {
+    "point": {
+      "type": "EventPoint",
+      "required": true,
+      "default": null
+    },
+    "detail": {
+      "type": "Detail",
+      "required": true,
+      "default": null
+    },
+    "version": {
+      "type": "decimal",
+      "required": true,
+      "default": null
+    },
+    "uid": {
+      "type": "string",
+      "required": true,
+      "default": null
+    },
+    "type_value": {
+      "type": "string",
+      "required": true,
+      "default": null
+    },
+    "time": {
+      "type": "XmlDateTime",
+      "required": true,
+      "default": null
+    },
+    "start": {
+      "type": "XmlDateTime",
+      "required": true,
+      "default": null
+    },
+    "stale": {
+      "type": "XmlDateTime",
+      "required": true,
+      "default": null
+    },
+    "how": {
+      "type": "string",
+      "required": true,
+      "default": null
+    }
+  },
+  "line": {
+    "point": {
+      "type": "EventPoint",
+      "required": true,
+      "default": null
+    },
+    "detail": {
+      "type": "Detail",
+      "required": true,
+      "default": null
+    },
+    "version": {
+      "type": "decimal",
+      "required": true,
+      "default": null
+    },
+    "uid": {
+      "type": "string",
+      "required": true,
+      "default": null
+    },
+    "type_value": {
+      "type": "string",
+      "required": false,
+      "default": "u-rb-a"
+    },
+    "time": {
+      "type": "XmlDateTime",
+      "required": true,
+      "default": null
+    },
+    "start": {
+      "type": "XmlDateTime",
+      "required": true,
+      "default": null
+    },
+    "stale": {
+      "type": "XmlDateTime",
+      "required": true,
+      "default": null
+    },
+    "how": {
+      "type": "string",
+      "required": true,
+      "default": null
+    }
+  },
+  "marker2525": {
+    "point": {
+      "type": "string",
+      "required": true,
+      "default": null
+    },
+    "detail": {
+      "type": "Detail",
+      "required": true,
+      "default": null
+    },
+    "version": {
+      "type": "decimal",
+      "required": true,
+      "default": null
+    },
+    "uid": {
+      "type": "string",
+      "required": true,
+      "default": null
+    },
+    "type_value": {
+      "type": "string",
+      "required": true,
+      "default": null
+    },
+    "time": {
+      "type": "XmlDateTime",
+      "required": true,
+      "default": null
+    },
+    "start": {
+      "type": "XmlDateTime",
+      "required": true,
+      "default": null
+    },
+    "stale": {
+      "type": "XmlDateTime",
+      "required": true,
+      "default": null
+    },
+    "how": {
+      "type": "string",
+      "required": true,
+      "default": null
+    }
+  },
+  "markerset": {
+    "point": {
+      "type": "string",
+      "required": true,
+      "default": null
+    },
+    "detail": {
+      "type": "Detail",
+      "required": true,
+      "default": null
+    },
+    "version": {
+      "type": "decimal",
+      "required": true,
+      "default": null
+    },
+    "uid": {
+      "type": "string",
+      "required": true,
+      "default": null
+    },
+    "type_value": {
+      "type": "string",
+      "required": true,
+      "default": null
+    },
+    "time": {
+      "type": "XmlDateTime",
+      "required": true,
+      "default": null
+    },
+    "start": {
+      "type": "XmlDateTime",
+      "required": true,
+      "default": null
+    },
+    "stale": {
+      "type": "XmlDateTime",
+      "required": true,
+      "default": null
+    },
+    "how": {
+      "type": "string",
+      "required": true,
+      "default": null
+    }
+  },
+  "rbcircle": {
+    "point": {
+      "type": "EventPoint",
+      "required": true,
+      "default": null
+    },
+    "detail": {
+      "type": "Detail",
+      "required": true,
+      "default": null
+    },
+    "version": {
+      "type": "decimal",
+      "required": true,
+      "default": null
+    },
+    "uid": {
+      "type": "string",
+      "required": true,
+      "default": null
+    },
+    "type_value": {
+      "type": "string",
+      "required": false,
+      "default": "u-r-b-c-c"
+    },
+    "time": {
+      "type": "XmlDateTime",
+      "required": true,
+      "default": null
+    },
+    "start": {
+      "type": "XmlDateTime",
+      "required": true,
+      "default": null
+    },
+    "stale": {
+      "type": "XmlDateTime",
+      "required": true,
+      "default": null
+    },
+    "how": {
+      "type": "string",
+      "required": true,
+      "default": null
+    }
+  },
+  "rectangle": {
+    "point": {
+      "type": "EventPoint",
+      "required": true,
+      "default": null
+    },
+    "detail": {
+      "type": "Detail",
+      "required": true,
+      "default": null
+    },
+    "version": {
+      "type": "decimal",
+      "required": true,
+      "default": null
+    },
+    "uid": {
+      "type": "string",
+      "required": true,
+      "default": null
+    },
+    "type_value": {
+      "type": "string",
+      "required": false,
+      "default": "u-d-r"
+    },
+    "time": {
+      "type": "XmlDateTime",
+      "required": true,
+      "default": null
+    },
+    "start": {
+      "type": "XmlDateTime",
+      "required": true,
+      "default": null
+    },
+    "stale": {
+      "type": "XmlDateTime",
+      "required": true,
+      "default": null
+    },
+    "how": {
+      "type": "string",
+      "required": true,
+      "default": null
+    }
+  },
+  "route": {
+    "point": {
+      "type": "EventPoint",
+      "required": true,
+      "default": null
+    },
+    "detail": {
+      "type": "Detail",
+      "required": true,
+      "default": null
+    },
+    "version": {
+      "type": "decimal",
+      "required": true,
+      "default": null
+    },
+    "uid": {
+      "type": "string",
+      "required": true,
+      "default": null
+    },
+    "type_value": {
+      "type": "string",
+      "required": false,
+      "default": "b-m-r"
+    },
+    "time": {
+      "type": "XmlDateTime",
+      "required": true,
+      "default": null
+    },
+    "start": {
+      "type": "XmlDateTime",
+      "required": true,
+      "default": null
+    },
+    "stale": {
+      "type": "XmlDateTime",
+      "required": true,
+      "default": null
+    },
+    "how": {
+      "type": "string",
+      "required": true,
+      "default": null
+    }
+  },
+  "spot": {
+    "point": {
+      "type": "EventPoint",
+      "required": true,
+      "default": null
+    },
+    "detail": {
+      "type": "Detail",
+      "required": true,
+      "default": null
+    },
+    "version": {
+      "type": "decimal",
+      "required": true,
+      "default": null
+    },
+    "uid": {
+      "type": "string",
+      "required": true,
+      "default": null
+    },
+    "type_value": {
+      "type": "string",
+      "required": true,
+      "default": null
+    },
+    "time": {
+      "type": "XmlDateTime",
+      "required": true,
+      "default": null
+    },
+    "start": {
+      "type": "XmlDateTime",
+      "required": true,
+      "default": null
+    },
+    "stale": {
+      "type": "XmlDateTime",
+      "required": true,
+      "default": null
+    },
+    "how": {
+      "type": "string",
+      "required": true,
+      "default": null
+    }
+  },
+  "telestration": {
+    "point": {
+      "type": "EventPoint",
+      "required": true,
+      "default": null
+    },
+    "detail": {
+      "type": "Detail",
+      "required": true,
+      "default": null
+    },
+    "version": {
+      "type": "decimal",
+      "required": true,
+      "default": null
+    },
+    "uid": {
+      "type": "string",
+      "required": true,
+      "default": null
+    },
+    "type_value": {
+      "type": "string",
+      "required": false,
+      "default": "u-d-f-m"
+    },
+    "time": {
+      "type": "XmlDateTime",
+      "required": true,
+      "default": null
+    },
+    "start": {
+      "type": "XmlDateTime",
+      "required": true,
+      "default": null
+    },
+    "stale": {
+      "type": "XmlDateTime",
+      "required": true,
+      "default": null
+    },
+    "how": {
+      "type": "string",
+      "required": true,
+      "default": null
+    }
+  }
+}

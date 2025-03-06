@@ -1,0 +1,5 @@
+{
+  "dependencies": {
+    "@tak-ps/node-cot": "^12.23.0"
+  }
+}
