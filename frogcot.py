@@ -41,6 +41,7 @@ def convert_2525b_to_cot(sidccode: str) -> str:
     sidc = sidccode
     if len(sidc) < 15:
         sidc = sidc.ljust(15, '-')
+    sidc = sidc.replace("*","-")
     
     pattern = r"^S[PUAFNSHGWMDLJK\-][PAGSUFXZ\-][AP\-]([A-Z0-9\-]{10})([AECGNS\-]{0,5})$"
     if not re.match(pattern, sidc):
@@ -526,3 +527,10 @@ if __name__ == "__main__":
     client = ATAKClient("TestUser")
     pos = {"lat": 32.0, "lon": -117.0, "alt": 0.0, "ce": 10.0, "le": 10.0}
     print(client.geochat("Hello", to_team="Team1", pos=pos).decode())
+
+    uava = "S*APMHR-----"
+    uav1 = convert_2525b_to_cot(uava)
+    print(uav1)
+    print(cot_manager.cot.get_full_name(uav1))
+    uav2 = convert_cot_to_2525b(uav1)
+    print(uav2)

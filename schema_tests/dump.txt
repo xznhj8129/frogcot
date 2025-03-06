@@ -1,0 +1,1410 @@
+Model: Event (Module: takschemas.tak.bullseye)
+  Field: point
+    Type: EventPoint
+    Required: True
+    Default: None
+  Field: detail
+    Type: Detail
+    Required: True
+    Default: None
+  Field: version
+    Type: decimal
+    Required: True
+    Default: None
+  Field: uid
+    Type: string
+    Required: True
+    Default: None
+  Field: type_value
+    Type: string
+    Required: True
+    Default: None
+  Field: time
+    Type: XmlDateTime
+    Required: True
+    Default: None
+  Field: start
+    Type: XmlDateTime
+    Required: True
+    Default: None
+  Field: stale
+    Type: XmlDateTime
+    Required: True
+    Default: None
+  Field: how
+    Type: string
+    Required: True
+    Default: None
+Model: DetailType (Module: takschemas.tak.chat)
+  Field: chat
+    Type: Chat
+    Required: True
+    Default: None
+  Field: link
+    Type: list of LinkType
+    Required: False
+    Default: PydanticUndefined
+    Default: PydanticUndefined
+  Field: remarks
+    Type: optional RemarksType
+    Required: False
+    Default: None
+  Field: chatreceipt
+    Type: optional Chatreceipt
+    Required: False
+    Default: None
+Model: Event (Module: takschemas.tak.chat)
+  Field: point
+    Type: EventPoint
+    Required: True
+    Default: None
+  Field: detail
+    Type: DetailType
+    Required: True
+    Default: None
+  Field: version
+    Type: optional float
+    Required: False
+    Default: None
+  Field: uid
+    Type: optional string
+    Required: False
+    Default: None
+  Field: type_value
+    Type: optional string
+    Required: False
+    Default: None
+  Field: time
+    Type: optional XmlDateTime
+    Required: False
+    Default: None
+  Field: start
+    Type: optional XmlDateTime
+    Required: False
+    Default: None
+  Field: stale
+    Type: optional XmlDateTime
+    Required: False
+    Default: None
+  Field: how
+    Type: optional string
+    Required: False
+    Default: None
+Model: EventType (Module: takschemas.tak.chat)
+  Field: point
+    Type: EventPoint
+    Required: True
+    Default: None
+  Field: detail
+    Type: DetailType
+    Required: True
+    Default: None
+  Field: version
+    Type: optional float
+    Required: False
+    Default: None
+  Field: uid
+    Type: optional string
+    Required: False
+    Default: None
+  Field: type_value
+    Type: optional string
+    Required: False
+    Default: None
+  Field: time
+    Type: optional XmlDateTime
+    Required: False
+    Default: None
+  Field: start
+    Type: optional XmlDateTime
+    Required: False
+    Default: None
+  Field: stale
+    Type: optional XmlDateTime
+    Required: False
+    Default: None
+  Field: how
+    Type: optional string
+    Required: False
+    Default: None
+Model: LinkType (Module: takschemas.tak.chat)
+  Field: value
+    Type: string
+    Required: False
+    Default: 
+    Default: 
+  Field: uid
+    Type: optional string
+    Required: False
+    Default: None
+  Field: type_value
+    Type: optional string
+    Required: False
+    Default: None
+  Field: relation
+    Type: optional string
+    Required: False
+    Default: None
+Model: RemarksType (Module: takschemas.tak.chat)
+  Field: value
+    Type: string
+    Required: False
+    Default: 
+    Default: 
+  Field: source
+    Type: optional string
+    Required: False
+    Default: None
+  Field: source_id
+    Type: optional string
+    Required: False
+    Default: None
+  Field: to
+    Type: optional string
+    Required: False
+    Default: None
+  Field: time
+    Type: optional XmlDateTime
+    Required: False
+    Default: None
+Model: Event (Module: takschemas.tak.circle)
+  Field: point
+    Type: EventPoint
+    Required: True
+    Default: None
+  Field: detail
+    Type: Detail
+    Required: True
+    Default: None
+  Field: version
+    Type: decimal
+    Required: True
+    Default: None
+  Field: uid
+    Type: string
+    Required: True
+    Default: None
+  Field: type_value
+    Type: string
+    Required: False
+    Default: u-d-c-c
+    Default: u-d-c-c
+  Field: time
+    Type: XmlDateTime
+    Required: True
+    Default: None
+  Field: start
+    Type: XmlDateTime
+    Required: True
+    Default: None
+  Field: stale
+    Type: XmlDateTime
+    Required: True
+    Default: None
+  Field: how
+    Type: string
+    Required: True
+    Default: None
+Model: Archive (Module: takschemas.tak.details.archive)
+  No fields found.
+Model: AttachmentList (Module: takschemas.tak.details.attachment_list)
+  Field: hashes
+    Type: object
+    Required: True
+    Default: None
+Model: Chat (Module: takschemas.tak.details.chat)
+  Field: chatgrp
+    Type: Chatgrp
+    Required: True
+    Default: None
+  Field: hierarchy
+    Type: optional Hierarchy
+    Required: False
+    Default: None
+  Field: chatroom
+    Type: object
+    Required: True
+    Default: None
+  Field: group_owner
+    Type: bool
+    Required: True
+    Default: None
+  Field: id
+    Type: object
+    Required: True
+    Default: None
+  Field: parent
+    Type: optional string
+    Required: False
+    Default: None
+  Field: sender_callsign
+    Type: string
+    Required: True
+    Default: None
+  Field: message_id
+    Type: optional object
+    Required: False
+    Default: None
+  Field: delete_child
+    Type: optional object
+    Required: False
+    Default: None
+Model: Chatgrp (Module: takschemas.tak.details.chatgrp)
+  Field: id
+    Type: object
+    Required: True
+    Default: None
+  Field: uid0
+    Type: string
+    Required: True
+    Default: None
+  Field: uid1
+    Type: optional string
+    Required: False
+    Default: None
+  Field: uid2
+    Type: optional string
+    Required: False
+    Default: None
+Model: Chatreceipt (Module: takschemas.tak.details.chatreceipt)
+  Field: chatgrp
+    Type: Chatgrp
+    Required: True
+    Default: None
+  Field: chatroom
+    Type: object
+    Required: True
+    Default: None
+  Field: group_owner
+    Type: bool
+    Required: True
+    Default: None
+  Field: id
+    Type: object
+    Required: True
+    Default: None
+  Field: parent
+    Type: optional string
+    Required: False
+    Default: None
+  Field: sender_callsign
+    Type: string
+    Required: True
+    Default: None
+  Field: message_id
+    Type: optional object
+    Required: False
+    Default: None
+Model: Color (Module: takschemas.tak.details.color)
+  Field: argb
+    Type: int
+    Required: True
+    Default: None
+Model: DetailColor (Module: takschemas.tak.details.color)
+  Field: argb
+    Type: int
+    Required: True
+    Default: None
+Model: Contact (Module: takschemas.tak.details.contact)
+  Field: callsign
+    Type: object
+    Required: True
+    Default: None
+  Field: email_address
+    Type: optional object
+    Required: False
+    Default: None
+  Field: endpoint
+    Type: optional object
+    Required: False
+    Default: None
+  Field: phone
+    Type: optional int
+    Required: False
+    Default: None
+  Field: xmpp_username
+    Type: optional object
+    Required: False
+    Default: None
+Model: Emergency (Module: takschemas.tak.details.emergency)
+  Field: value
+    Type: string
+    Required: False
+    Default: 
+    Default: 
+  Field: cancel
+    Type: optional bool
+    Required: False
+    Default: None
+  Field: type_value
+    Type: optional object
+    Required: False
+    Default: None
+Model: Environment (Module: takschemas.tak.details.environment)
+  Field: temperature
+    Type: decimal
+    Required: True
+    Default: None
+  Field: wind_direction
+    Type: decimal
+    Required: True
+    Default: None
+  Field: wind_speed
+    Type: decimal
+    Required: True
+    Default: None
+Model: Fileshare (Module: takschemas.tak.details.fileshare)
+  Field: filename
+    Type: object
+    Required: True
+    Default: None
+  Field: name
+    Type: object
+    Required: True
+    Default: None
+  Field: sender_callsign
+    Type: string
+    Required: True
+    Default: None
+  Field: sender_uid
+    Type: string
+    Required: True
+    Default: None
+  Field: sender_url
+    Type: string
+    Required: True
+    Default: None
+  Field: sha256
+    Type: object
+    Required: True
+    Default: None
+  Field: size_in_bytes
+    Type: int
+    Required: True
+    Default: None
+Model: FillColor (Module: takschemas.tak.details.fill_color)
+  Field: value
+    Type: int
+    Required: True
+    Default: None
+Model: Geofence (Module: takschemas.tak.details.geofence)
+  Field: elevation_monitored
+    Type: bool
+    Required: True
+    Default: None
+  Field: min_elevation
+    Type: decimal
+    Required: True
+    Default: None
+  Field: monitor
+    Type: string
+    Required: True
+    Default: None
+  Field: trigger
+    Type: string
+    Required: True
+    Default: None
+  Field: tracking
+    Type: bool
+    Required: True
+    Default: None
+  Field: max_elevation
+    Type: decimal
+    Required: True
+    Default: None
+  Field: bounding_sphere
+    Type: decimal
+    Required: True
+    Default: None
+Model: Group (Module: takschemas.tak.details.group)
+  Field: name
+    Type: object
+    Required: True
+    Default: None
+  Field: role
+    Type: object
+    Required: True
+    Default: None
+Model: Height (Module: takschemas.tak.details.height)
+  Field: value
+    Type: decimal
+    Required: True
+    Default: None
+Model: HeightUnit (Module: takschemas.tak.details.height_unit)
+  Field: value
+    Type: int
+    Required: True
+    Default: None
+Model: Contact (Module: takschemas.tak.details.hierarchy)
+  Field: value
+    Type: string
+    Required: False
+    Default: 
+    Default: 
+  Field: uid
+    Type: optional string
+    Required: False
+    Default: None
+  Field: name
+    Type: optional string
+    Required: False
+    Default: None
+Model: Group (Module: takschemas.tak.details.hierarchy)
+  Field: contact
+    Type: list of Contact
+    Required: False
+    Default: PydanticUndefined
+    Default: PydanticUndefined
+  Field: group
+    Type: optional Group
+    Required: False
+    Default: None
+  Field: uid
+    Type: optional string
+    Required: False
+    Default: None
+  Field: name
+    Type: optional string
+    Required: False
+    Default: None
+Model: Hierarchy (Module: takschemas.tak.details.hierarchy)
+  Field: group
+    Type: Group
+    Required: True
+    Default: None
+Model: LabelsOn (Module: takschemas.tak.details.labels_on)
+  Field: value
+    Type: bool
+    Required: True
+    Default: None
+Model: Link (Module: takschemas.tak.details.link)
+  Field: point
+    Type: string
+    Required: True
+    Default: None
+  Field: parent_callsign
+    Type: optional string
+    Required: False
+    Default: None
+  Field: production_time
+    Type: optional XmlDateTime
+    Required: False
+    Default: None
+  Field: relation
+    Type: string
+    Required: True
+    Default: None
+  Field: type_value
+    Type: string
+    Required: True
+    Default: None
+  Field: uid
+    Type: string
+    Required: True
+    Default: None
+  Field: callsign
+    Type: optional string
+    Required: False
+    Default: None
+  Field: remarks
+    Type: optional string
+    Required: False
+    Default: None
+Model: ContentResource (Module: takschemas.tak.details.mission)
+  Field: creator_uid
+    Type: optional CreatorUid
+    Required: False
+    Default: None
+  Field: filename
+    Type: optional Filename
+    Required: False
+    Default: None
+  Field: hash
+    Type: Hash
+    Required: True
+    Default: None
+  Field: keywords
+    Type: list of Keywords
+    Required: False
+    Default: PydanticUndefined
+    Default: PydanticUndefined
+  Field: mime_type
+    Type: MimeType
+    Required: True
+    Default: None
+  Field: name
+    Type: Name
+    Required: True
+    Default: None
+  Field: size
+    Type: Size
+    Required: True
+    Default: None
+  Field: submission_time
+    Type: SubmissionTime
+    Required: True
+    Default: None
+  Field: submitter
+    Type: Submitter
+    Required: True
+    Default: None
+  Field: tool
+    Type: optional Tool
+    Required: False
+    Default: None
+  Field: uid
+    Type: Uid
+    Required: True
+    Default: None
+Model: ContentUid (Module: takschemas.tak.details.mission)
+  Field: value
+    Type: string
+    Required: False
+    Default: 
+    Default: 
+Model: CreatorUid (Module: takschemas.tak.details.mission)
+  Field: value
+    Type: string
+    Required: False
+    Default: 
+    Default: 
+Model: Details (Module: takschemas.tak.details.mission)
+  Field: callsign
+    Type: optional object
+    Required: False
+    Default: None
+  Field: color
+    Type: optional int
+    Required: False
+    Default: None
+  Field: iconset_path
+    Type: optional object
+    Required: False
+    Default: None
+  Field: type_value
+    Type: string
+    Required: True
+    Default: None
+Model: ExternalData (Module: takschemas.tak.details.mission)
+  Field: uid
+    Type: Uid
+    Required: True
+    Default: None
+  Field: name
+    Type: Name
+    Required: True
+    Default: None
+  Field: tool
+    Type: Tool
+    Required: True
+    Default: None
+  Field: url_data
+    Type: UrlData
+    Required: True
+    Default: None
+  Field: url_view
+    Type: UrlView
+    Required: True
+    Default: None
+Model: Filename (Module: takschemas.tak.details.mission)
+  Field: value
+    Type: string
+    Required: False
+    Default: 
+    Default: 
+Model: Hash (Module: takschemas.tak.details.mission)
+  Field: value
+    Type: string
+    Required: False
+    Default: 
+    Default: 
+Model: Keywords (Module: takschemas.tak.details.mission)
+  Field: value
+    Type: string
+    Required: False
+    Default: 
+    Default: 
+Model: MimeType (Module: takschemas.tak.details.mission)
+  Field: value
+    Type: string
+    Required: False
+    Default: 
+    Default: 
+Model: Mission (Module: takschemas.tak.details.mission)
+  Field: mission_changes
+    Type: optional MissionChanges
+    Required: False
+    Default: None
+  Field: author_uid
+    Type: optional string
+    Required: False
+    Default: None
+  Field: name
+    Type: object
+    Required: True
+    Default: None
+  Field: tool
+    Type: string
+    Required: True
+    Default: None
+  Field: type_value
+    Type: string
+    Required: True
+    Default: None
+Model: MissionChange (Module: takschemas.tak.details.mission)
+  Field: content_resource
+    Type: optional ContentResource
+    Required: False
+    Default: None
+  Field: content_uid
+    Type: optional ContentUid
+    Required: False
+    Default: None
+  Field: creator_uid
+    Type: CreatorUid
+    Required: True
+    Default: None
+  Field: external_data
+    Type: optional ExternalData
+    Required: False
+    Default: None
+  Field: mission_name
+    Type: MissionName
+    Required: True
+    Default: None
+  Field: timestamp
+    Type: Timestamp
+    Required: True
+    Default: None
+  Field: type_value
+    Type: Type
+    Required: True
+    Default: None
+  Field: details
+    Type: optional Details
+    Required: False
+    Default: None
+Model: MissionChanges (Module: takschemas.tak.details.mission)
+  Field: mission_change
+    Type: MissionChange
+    Required: True
+    Default: None
+Model: MissionName (Module: takschemas.tak.details.mission)
+  Field: value
+    Type: string
+    Required: False
+    Default: 
+    Default: 
+Model: Name (Module: takschemas.tak.details.mission)
+  Field: value
+    Type: string
+    Required: False
+    Default: 
+    Default: 
+Model: Size (Module: takschemas.tak.details.mission)
+  Field: value
+    Type: int
+    Required: True
+    Default: None
+Model: SubmissionTime (Module: takschemas.tak.details.mission)
+  Field: value
+    Type: XmlDateTime
+    Required: True
+    Default: None
+Model: Submitter (Module: takschemas.tak.details.mission)
+  Field: value
+    Type: string
+    Required: False
+    Default: 
+    Default: 
+Model: Timestamp (Module: takschemas.tak.details.mission)
+  Field: value
+    Type: XmlDateTime
+    Required: True
+    Default: None
+Model: Tool (Module: takschemas.tak.details.mission)
+  Field: value
+    Type: string
+    Required: False
+    Default: 
+    Default: 
+Model: Type (Module: takschemas.tak.details.mission)
+  Field: value
+    Type: string
+    Required: False
+    Default: 
+    Default: 
+Model: UrlData (Module: takschemas.tak.details.mission)
+  Field: value
+    Type: string
+    Required: False
+    Default: 
+    Default: 
+Model: UrlView (Module: takschemas.tak.details.mission)
+  Field: value
+    Type: string
+    Required: False
+    Default: 
+    Default: 
+Model: Precisionlocation (Module: takschemas.tak.details.precisionlocation)
+  Field: geopointsrc
+    Type: optional string
+    Required: False
+    Default: None
+  Field: altsrc
+    Type: string
+    Required: True
+    Default: None
+  Field: precise_image_file
+    Type: optional string
+    Required: False
+    Default: None
+  Field: precise_image_file_x
+    Type: optional decimal
+    Required: False
+    Default: None
+  Field: precise_image_file_y
+    Type: optional decimal
+    Required: False
+    Default: None
+Model: Remarks (Module: takschemas.tak.details.remarks)
+  Field: source
+    Type: optional string
+    Required: False
+    Default: None
+  Field: source_id
+    Type: optional object
+    Required: False
+    Default: None
+  Field: time
+    Type: optional XmlDateTime
+    Required: False
+    Default: None
+  Field: to
+    Type: optional object
+    Required: False
+    Default: None
+  Field: content
+    Type: list of object
+    Required: False
+    Default: PydanticUndefined
+    Default: PydanticUndefined
+Model: Serverdestination (Module: takschemas.tak.details.serverdestination)
+  Field: destinations
+    Type: object
+    Required: True
+    Default: None
+Model: Alpha (Module: takschemas.tak.details.shape)
+  Field: value
+    Type: int
+    Required: True
+    Default: None
+Model: Color1 (Module: takschemas.tak.details.shape)
+  Field: color
+    Type: Color
+    Required: True
+    Default: None
+Model: Ellipse (Module: takschemas.tak.details.shape)
+  Field: angle
+    Type: int
+    Required: True
+    Default: None
+  Field: major
+    Type: decimal
+    Required: True
+    Default: None
+  Field: minor
+    Type: decimal
+    Required: True
+    Default: None
+Model: LineStyle (Module: takschemas.tak.details.shape)
+  Field: color
+    Type: Color
+    Required: True
+    Default: None
+  Field: width
+    Type: Width
+    Required: True
+    Default: None
+  Field: alpha
+    Type: optional Alpha
+    Required: False
+    Default: None
+Model: Link (Module: takschemas.tak.details.shape)
+  Field: style
+    Type: optional Style
+    Required: False
+    Default: None
+  Field: relation
+    Type: string
+    Required: True
+    Default: None
+  Field: type_value
+    Type: string
+    Required: True
+    Default: None
+  Field: uid
+    Type: object
+    Required: True
+    Default: None
+Model: PolyStyle (Module: takschemas.tak.details.shape)
+  Field: color
+    Type: Color
+    Required: True
+    Default: None
+Model: Polyline (Module: takschemas.tak.details.shape)
+  Field: vertex
+    Type: list of Vertex
+    Required: False
+    Default: PydanticUndefined
+    Default: PydanticUndefined
+  Field: closed
+    Type: bool
+    Required: True
+    Default: None
+Model: Shape (Module: takschemas.tak.details.shape)
+  Field: polyline
+    Type: optional Polyline
+    Required: False
+    Default: None
+  Field: ellipse
+    Type: optional Ellipse
+    Required: False
+    Default: None
+  Field: link
+    Type: list of Link
+    Required: False
+    Default: PydanticUndefined
+    Default: PydanticUndefined
+Model: ShapeEllipse (Module: takschemas.tak.details.shape)
+  Field: angle
+    Type: int
+    Required: True
+    Default: None
+  Field: major
+    Type: decimal
+    Required: True
+    Default: None
+  Field: minor
+    Type: decimal
+    Required: True
+    Default: None
+Model: ShapeLink (Module: takschemas.tak.details.shape)
+  Field: style
+    Type: optional Style
+    Required: False
+    Default: None
+  Field: relation
+    Type: string
+    Required: True
+    Default: None
+  Field: type_value
+    Type: string
+    Required: True
+    Default: None
+  Field: uid
+    Type: object
+    Required: True
+    Default: None
+Model: ShapePolyline (Module: takschemas.tak.details.shape)
+  Field: vertex
+    Type: list of Vertex
+    Required: False
+    Default: PydanticUndefined
+    Default: PydanticUndefined
+  Field: closed
+    Type: bool
+    Required: True
+    Default: None
+Model: Style (Module: takschemas.tak.details.shape)
+  Field: line_style
+    Type: LineStyle
+    Required: True
+    Default: None
+  Field: poly_style
+    Type: PolyStyle
+    Required: True
+    Default: None
+Model: Vertex (Module: takschemas.tak.details.shape)
+  Field: hae
+    Type: decimal
+    Required: True
+    Default: None
+  Field: lat
+    Type: float
+    Required: True
+    Default: None
+  Field: lon
+    Type: float
+    Required: True
+    Default: None
+Model: Width (Module: takschemas.tak.details.shape)
+  Field: value
+    Type: decimal
+    Required: True
+    Default: None
+Model: Status (Module: takschemas.tak.details.status)
+  Field: battery
+    Type: optional int
+    Required: False
+    Default: None
+  Field: readiness
+    Type: optional bool
+    Required: False
+    Default: None
+Model: StrokeColor (Module: takschemas.tak.details.stroke_color)
+  Field: value
+    Type: int
+    Required: True
+    Default: None
+Model: StrokeWeight (Module: takschemas.tak.details.stroke_weight)
+  Field: value
+    Type: decimal
+    Required: True
+    Default: None
+Model: Takv (Module: takschemas.tak.details.takv)
+  Field: device
+    Type: optional object
+    Required: False
+    Default: None
+  Field: os
+    Type: optional object
+    Required: False
+    Default: None
+  Field: platform
+    Type: object
+    Required: True
+    Default: None
+  Field: version
+    Type: string
+    Required: True
+    Default: None
+Model: Track (Module: takschemas.tak.details.track)
+  Field: course
+    Type: decimal
+    Required: True
+    Default: None
+  Field: slope
+    Type: optional decimal
+    Required: False
+    Default: None
+  Field: speed
+    Type: decimal
+    Required: True
+    Default: None
+Model: Uid (Module: takschemas.tak.details.uid)
+  Field: droid
+    Type: string
+    Required: True
+    Default: None
+  Field: nett
+    Type: optional string
+    Required: False
+    Default: None
+Model: Usericon (Module: takschemas.tak.details.usericon)
+  Field: iconsetpath
+    Type: object
+    Required: True
+    Default: None
+Model: Video (Module: takschemas.tak.details.video)
+  Field: url
+    Type: string
+    Required: True
+    Default: None
+Model: EventPoint (Module: takschemas.tak.event.point)
+  Field: lat
+    Type: decimal
+    Required: True
+    Default: None
+  Field: lon
+    Type: decimal
+    Required: True
+    Default: None
+  Field: hae
+    Type: decimal
+    Required: True
+    Default: None
+  Field: ce
+    Type: decimal
+    Required: True
+    Default: None
+  Field: le
+    Type: decimal
+    Required: True
+    Default: None
+Model: Event (Module: takschemas.tak.freeform)
+  Field: point
+    Type: EventPoint
+    Required: True
+    Default: None
+  Field: detail
+    Type: Detail
+    Required: True
+    Default: None
+  Field: version
+    Type: decimal
+    Required: True
+    Default: None
+  Field: uid
+    Type: string
+    Required: True
+    Default: None
+  Field: type_value
+    Type: string
+    Required: False
+    Default: u-d-f
+    Default: u-d-f
+  Field: time
+    Type: XmlDateTime
+    Required: True
+    Default: None
+  Field: start
+    Type: XmlDateTime
+    Required: True
+    Default: None
+  Field: stale
+    Type: XmlDateTime
+    Required: True
+    Default: None
+  Field: how
+    Type: string
+    Required: True
+    Default: None
+Model: Event (Module: takschemas.tak.geofence)
+  Field: point
+    Type: EventPoint
+    Required: True
+    Default: None
+  Field: detail
+    Type: Detail
+    Required: True
+    Default: None
+  Field: version
+    Type: decimal
+    Required: True
+    Default: None
+  Field: uid
+    Type: string
+    Required: True
+    Default: None
+  Field: type_value
+    Type: string
+    Required: True
+    Default: None
+  Field: time
+    Type: XmlDateTime
+    Required: True
+    Default: None
+  Field: start
+    Type: XmlDateTime
+    Required: True
+    Default: None
+  Field: stale
+    Type: XmlDateTime
+    Required: True
+    Default: None
+  Field: how
+    Type: string
+    Required: True
+    Default: None
+Model: Event (Module: takschemas.tak.line)
+  Field: point
+    Type: EventPoint
+    Required: True
+    Default: None
+  Field: detail
+    Type: Detail
+    Required: True
+    Default: None
+  Field: version
+    Type: decimal
+    Required: True
+    Default: None
+  Field: uid
+    Type: string
+    Required: True
+    Default: None
+  Field: type_value
+    Type: string
+    Required: False
+    Default: u-rb-a
+    Default: u-rb-a
+  Field: time
+    Type: XmlDateTime
+    Required: True
+    Default: None
+  Field: start
+    Type: XmlDateTime
+    Required: True
+    Default: None
+  Field: stale
+    Type: XmlDateTime
+    Required: True
+    Default: None
+  Field: how
+    Type: string
+    Required: True
+    Default: None
+Model: Event (Module: takschemas.tak.marker2525)
+  Field: point
+    Type: string
+    Required: True
+    Default: None
+  Field: detail
+    Type: Detail
+    Required: True
+    Default: None
+  Field: version
+    Type: decimal
+    Required: True
+    Default: None
+  Field: uid
+    Type: string
+    Required: True
+    Default: None
+  Field: type_value
+    Type: string
+    Required: True
+    Default: None
+  Field: time
+    Type: XmlDateTime
+    Required: True
+    Default: None
+  Field: start
+    Type: XmlDateTime
+    Required: True
+    Default: None
+  Field: stale
+    Type: XmlDateTime
+    Required: True
+    Default: None
+  Field: how
+    Type: string
+    Required: True
+    Default: None
+Model: Event (Module: takschemas.tak.markerset)
+  Field: point
+    Type: string
+    Required: True
+    Default: None
+  Field: detail
+    Type: Detail
+    Required: True
+    Default: None
+  Field: version
+    Type: decimal
+    Required: True
+    Default: None
+  Field: uid
+    Type: string
+    Required: True
+    Default: None
+  Field: type_value
+    Type: string
+    Required: True
+    Default: None
+  Field: time
+    Type: XmlDateTime
+    Required: True
+    Default: None
+  Field: start
+    Type: XmlDateTime
+    Required: True
+    Default: None
+  Field: stale
+    Type: XmlDateTime
+    Required: True
+    Default: None
+  Field: how
+    Type: string
+    Required: True
+    Default: None
+Model: Event (Module: takschemas.tak.rbcircle)
+  Field: point
+    Type: EventPoint
+    Required: True
+    Default: None
+  Field: detail
+    Type: Detail
+    Required: True
+    Default: None
+  Field: version
+    Type: decimal
+    Required: True
+    Default: None
+  Field: uid
+    Type: string
+    Required: True
+    Default: None
+  Field: type_value
+    Type: string
+    Required: False
+    Default: u-r-b-c-c
+    Default: u-r-b-c-c
+  Field: time
+    Type: XmlDateTime
+    Required: True
+    Default: None
+  Field: start
+    Type: XmlDateTime
+    Required: True
+    Default: None
+  Field: stale
+    Type: XmlDateTime
+    Required: True
+    Default: None
+  Field: how
+    Type: string
+    Required: True
+    Default: None
+Model: Event (Module: takschemas.tak.rectangle)
+  Field: point
+    Type: EventPoint
+    Required: True
+    Default: None
+  Field: detail
+    Type: Detail
+    Required: True
+    Default: None
+  Field: version
+    Type: decimal
+    Required: True
+    Default: None
+  Field: uid
+    Type: string
+    Required: True
+    Default: None
+  Field: type_value
+    Type: string
+    Required: False
+    Default: u-d-r
+    Default: u-d-r
+  Field: time
+    Type: XmlDateTime
+    Required: True
+    Default: None
+  Field: start
+    Type: XmlDateTime
+    Required: True
+    Default: None
+  Field: stale
+    Type: XmlDateTime
+    Required: True
+    Default: None
+  Field: how
+    Type: string
+    Required: True
+    Default: None
+Model: Event (Module: takschemas.tak.route)
+  Field: point
+    Type: EventPoint
+    Required: True
+    Default: None
+  Field: detail
+    Type: Detail
+    Required: True
+    Default: None
+  Field: version
+    Type: decimal
+    Required: True
+    Default: None
+  Field: uid
+    Type: string
+    Required: True
+    Default: None
+  Field: type_value
+    Type: string
+    Required: False
+    Default: b-m-r
+    Default: b-m-r
+  Field: time
+    Type: XmlDateTime
+    Required: True
+    Default: None
+  Field: start
+    Type: XmlDateTime
+    Required: True
+    Default: None
+  Field: stale
+    Type: XmlDateTime
+    Required: True
+    Default: None
+  Field: how
+    Type: string
+    Required: True
+    Default: None
+Model: Event (Module: takschemas.tak.spot)
+  Field: point
+    Type: EventPoint
+    Required: True
+    Default: None
+  Field: detail
+    Type: Detail
+    Required: True
+    Default: None
+  Field: version
+    Type: decimal
+    Required: True
+    Default: None
+  Field: uid
+    Type: string
+    Required: True
+    Default: None
+  Field: type_value
+    Type: string
+    Required: True
+    Default: None
+  Field: time
+    Type: XmlDateTime
+    Required: True
+    Default: None
+  Field: start
+    Type: XmlDateTime
+    Required: True
+    Default: None
+  Field: stale
+    Type: XmlDateTime
+    Required: True
+    Default: None
+  Field: how
+    Type: string
+    Required: True
+    Default: None
+Model: Event (Module: takschemas.tak.telestration)
+  Field: point
+    Type: EventPoint
+    Required: True
+    Default: None
+  Field: detail
+    Type: Detail
+    Required: True
+    Default: None
+  Field: version
+    Type: decimal
+    Required: True
+    Default: None
+  Field: uid
+    Type: string
+    Required: True
+    Default: None
+  Field: type_value
+    Type: string
+    Required: False
+    Default: u-d-f-m
+    Default: u-d-f-m
+  Field: time
+    Type: XmlDateTime
+    Required: True
+    Default: None
+  Field: start
+    Type: XmlDateTime
+    Required: True
+    Default: None
+  Field: stale
+    Type: XmlDateTime
+    Required: True
+    Default: None
+  Field: how
+    Type: string
+    Required: True
+    Default: None
