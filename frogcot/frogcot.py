@@ -8,7 +8,202 @@ import re
 from collections import defaultdict
 from dataclasses import dataclass, field, asdict
 from typing import Any, Dict, Optional, Union
+import importlib.resources
 import json
+
+
+# Category Management Classes
+class CoTCatManager:
+    def __init__(self, tag: str):
+        # Initialize category with tag and mappings
+        self.tag = tag
+        self.code_to_info: Dict[str, Dict[str, str]] = {}
+        self.description_to_code: Dict[str, str] = {}
+        self.hierarchy = defaultdict(dict)
+        self.base_categories = {
+            'a': 'Atoms', 'b': 'Bits', 't': 'Tasking', 'y': 'Reply',
+            'c': 'Capability', 'r': 'Reservation'
+        }
+        for code, desc in self.base_categories.items():
+            self.code_to_info[code] = {'desc': desc, 'full': desc}
+            self.description_to_code[desc] = code
+
+    def add_entry(self, element: ET.Element) -> None:
+        cot = element.attrib.get('cot', '')  # Remove .lower() to preserve case
+        desc = element.attrib.get('desc')
+        full = element.attrib.get('full', desc)
+        if not cot or not desc:
+            return
+        clean_cot = re.sub(r'[\^$|]', '', cot)
+        self.code_to_info[clean_cot] = {'desc': desc, 'full': full}
+        self.description_to_code[desc] = clean_cot
+        self.description_to_code[full] = clean_cot
+        current = self.hierarchy
+        for part in clean_cot.split('-'):
+            if part and not any(c in part for c in '*'):
+                current = current.setdefault(part, defaultdict(dict))
+
+    def get_subcategories(self, parent_code: str) -> list[Dict[str, str]]:
+        # Retrieve subcategories for a parent code
+        code = "a-." if parent_code == "a" else parent_code
+        parts = code.split('-')
+        current = self.hierarchy
+        for part in parts:
+            if part not in current: return []
+            current = current[part]
+        result = []
+        for key in current:
+            if any(c in key for c in ('.', '*', '^', '$')): continue
+            child_code = f"{code}-{key}" if code else key
+            desc = self.code_to_info.get(child_code, {}).get('desc') or self.code_to_info.get(key, {}).get('desc')
+            if desc:
+                result.append({"cottype": child_code, "desc": desc})
+        return result
+
+    def find_code(self, description: str) -> Optional[str]:
+        # Find CoT code by description
+        return self.description_to_code.get(description)
+
+    def get_full_name(self, code: str) -> Optional[str]:
+        # Get full hierarchical name for a code
+        if code not in self.code_to_info: return None
+        entry = self.code_to_info[code]
+        if '/' in entry['full']: return entry['full']
+        parts = code.split('-')
+        path = []
+        current_code = []
+        for part in parts:
+            current_code.append(part)
+            key = '-'.join(current_code)
+            if key in self.code_to_info:
+                path.append(self.code_to_info[key]['desc'])
+        return '/'.join(path)
+
+class CoTTypes:
+    def __init__(self):
+        with importlib.resources.open_text("frogcot.cotstd", "CoTtypes.xml") as f:
+            tree = ET.parse(f)
+        self.categories = {
+            'cot': CoTCatManager('cot'),
+            'weapon': CoTCatManager('weapon'),
+            'relation': CoTCatManager('relation'),
+            'is': CoTCatManager('is'),
+            'how': CoTCatManager('how')
+        }
+
+        for elem in tree.getroot():
+            if elem.tag in self.categories:
+                self.categories[elem.tag].add_entry(elem)
+
+    def __getattr__(self, name: str) -> CoTCatManager:
+        if name in self.categories: return self.categories[name]
+        raise AttributeError(f"No category '{name}'")
+
+class ATAKClient:
+    def __init__(self, callsign: str, cottype: str = "a-f-U", is_self: bool = False):
+        self.self = is_self
+        self.callsign = callsign
+        self.cottype = cottype
+        xuid = str(uuid.uuid4()).split("-")
+        self.uid = f"PYTAK-{str(xuid[3]) + str(xuid[4])}"
+        self.takv = {"version": "5.2.0.8", 'platform': "ATAK-CIV", 'device': "PC", 'os': '33'}
+        self.groups = {}
+        self.pos = {}
+        self.xmppusername = None
+
+    # Well-defined functions
+    def geochat(self, msg, dest=None, to_team=None, pos=None):
+        if to_team is not None and not dest:
+            to_callsign = to_team
+            to_uid = to_team
+        elif not to_team and dest is not None:
+            to_callsign = dest.callsign
+            to_uid = dest.uid
+        else:
+            return
+        my_callsign = self.callsign
+        my_uid = self.uid
+        my_cottype = self.cottype
+        msg_cottype = 'b-t-f'
+        msguid = str(uuid.uuid4())
+        chat_parent = "TeamGroups" if to_team is not None else 'RootContactGroup'
+        cot = ET.Element('event')
+        cot.set('version', '2.0')
+        cot.set('uid', f"GeoChat.{my_uid}.{to_uid}.{msguid}")
+        cot.set('type', msg_cottype)
+        cot.set('time', generate_cot_time())
+        cot.set('start', generate_cot_time())
+        cot.set('stale', generate_cot_time(60))
+        cot.set('how', 'm-g')
+        if pos:
+            point = ET.SubElement(cot, 'point')
+            point.set('lat', str(pos["lat"]))
+            point.set('lon', str(pos["lon"]))
+            point.set('hae', str(pos["alt"]))
+            point.set('ce', str(pos["ce"]))
+            point.set('le', str(pos["le"]))
+        detail = ET.SubElement(cot, 'detail')
+        takv = ET.SubElement(detail, 'takv')
+        for i in self.takv: takv.set(i, self.takv[i])
+        chat = ET.SubElement(detail, '__chat')
+        chat.set('parent', chat_parent)
+        chat.set('groupOwner', 'false')
+        chat.set('messageId', str(uuid.uuid4()))
+        chat.set('chatroom', to_callsign)
+        chat.set('id', to_uid)
+        chat.set('senderCallsign', my_callsign)
+        chatgrp = ET.SubElement(chat, 'chatgrp')
+        chatgrp.set('uid0', my_uid)
+        chatgrp.set('uid1', to_uid)
+        chatgrp.set('id', to_uid)
+        link = ET.SubElement(detail, 'link')
+        link.set('uid', my_uid)
+        link.set('type', my_cottype)
+        link.set('relation', 'p-p')
+        remarks = ET.SubElement(detail, 'remarks')
+        remarks.set('source', f'BAO.F.ATAK.{my_uid}')
+        remarks.set('to', to_uid)
+        remarks.set('time', generate_cot_time())
+        remarks.text = msg
+        marti = ET.SubElement(detail, 'marti')
+        dest = ET.SubElement(marti, 'dest')
+        dest.set('callsign', to_callsign)
+        return ET.tostring(cot)
+
+    def cot_marker(self, callsign, uid, cottype, pos, iconpath=None):
+        cot = ET.Element('event')
+        cot.set('version', '2.0')
+        cot.set('uid', uid)
+        cot.set('type', cottype)
+        cot.set('time', generate_cot_time())
+        cot.set('start', generate_cot_time())
+        cot.set('stale', generate_cot_time(60))
+        cot.set('how', "h-g-i-g-o")
+        point = ET.SubElement(cot, 'point')
+        point.set('lat', str(pos["lat"]))
+        point.set('lon', str(pos["lon"]))
+        point.set('hae', str(pos["alt"]))
+        point.set('ce', str(pos["ce"]))
+        point.set('le', str(pos["le"]))
+        detail = ET.SubElement(cot, 'detail')
+        takv = ET.SubElement(detail, 'takv')
+        for i in self.takv: takv.set(i, self.takv[i])
+        if iconpath:
+            usericon = ET.SubElement(detail, "usericon")
+            usericon.set('iconsetpath', iconpath)
+        contact = ET.SubElement(detail, 'contact')
+        contact.set('callsign', callsign)
+        color = ET.SubElement(detail, 'color')
+        color.set('argb', "-1")
+        precisionlocation = ET.SubElement(detail, 'precisionlocation')
+        precisionlocation.set('altsrc', "SRTM1")
+        link = ET.SubElement(detail, 'link')
+        link.set('uid', self.uid)
+        link.set('type', self.cottype)
+        link.set('parent_callsign', self.callsign)
+        link.set('production_time', generate_cot_time())
+        link.set('relation', 'p-p')
+        return ET.tostring(cot)
 
 # Utility Functions
 def generate_cot_time(offset_seconds: float = 0) -> str:
@@ -271,198 +466,6 @@ def cot_to_xml(event: Event) -> str:
     if event.detail: event_dict['event']['detail'] = event.detail
     return xmltodict.unparse(event_dict, pretty=True)
 
-# Category Management Classes
-class CoTCatManager:
-    def __init__(self, tag: str):
-        # Initialize category with tag and mappings
-        self.tag = tag
-        self.code_to_info: Dict[str, Dict[str, str]] = {}
-        self.description_to_code: Dict[str, str] = {}
-        self.hierarchy = defaultdict(dict)
-        self.base_categories = {
-            'a': 'Atoms', 'b': 'Bits', 't': 'Tasking', 'y': 'Reply',
-            'c': 'Capability', 'r': 'Reservation'
-        }
-        for code, desc in self.base_categories.items():
-            self.code_to_info[code] = {'desc': desc, 'full': desc}
-            self.description_to_code[desc] = code
-
-    def add_entry(self, element: ET.Element) -> None:
-        cot = element.attrib.get('cot', '')  # Remove .lower() to preserve case
-        desc = element.attrib.get('desc')
-        full = element.attrib.get('full', desc)
-        if not cot or not desc:
-            return
-        clean_cot = re.sub(r'[\^$|]', '', cot)
-        self.code_to_info[clean_cot] = {'desc': desc, 'full': full}
-        self.description_to_code[desc] = clean_cot
-        self.description_to_code[full] = clean_cot
-        current = self.hierarchy
-        for part in clean_cot.split('-'):
-            if part and not any(c in part for c in '*'):
-                current = current.setdefault(part, defaultdict(dict))
-
-    def get_subcategories(self, parent_code: str) -> list[Dict[str, str]]:
-        # Retrieve subcategories for a parent code
-        code = "a-." if parent_code == "a" else parent_code
-        parts = code.split('-')
-        current = self.hierarchy
-        for part in parts:
-            if part not in current: return []
-            current = current[part]
-        result = []
-        for key in current:
-            if any(c in key for c in ('.', '*', '^', '$')): continue
-            child_code = f"{code}-{key}" if code else key
-            desc = self.code_to_info.get(child_code, {}).get('desc') or self.code_to_info.get(key, {}).get('desc')
-            if desc:
-                result.append({"cottype": child_code, "desc": desc})
-        return result
-
-    def find_code(self, description: str) -> Optional[str]:
-        # Find CoT code by description
-        return self.description_to_code.get(description)
-
-    def get_full_name(self, code: str) -> Optional[str]:
-        # Get full hierarchical name for a code
-        if code not in self.code_to_info: return None
-        entry = self.code_to_info[code]
-        if '/' in entry['full']: return entry['full']
-        parts = code.split('-')
-        path = []
-        current_code = []
-        for part in parts:
-            current_code.append(part)
-            key = '-'.join(current_code)
-            if key in self.code_to_info:
-                path.append(self.code_to_info[key]['desc'])
-        return '/'.join(path)
-
-class CoTTypes:
-    def __init__(self, xml_path: str):
-        # Manage multiple CoT categories from an XML file
-        self.categories = {
-            'cot': CoTCatManager('cot'),
-            'weapon': CoTCatManager('weapon'),
-            'relation': CoTCatManager('relation'),
-            'is': CoTCatManager('is'),
-            'how': CoTCatManager('how')
-        }
-        tree = ET.parse(xml_path)
-        for elem in tree.getroot():
-            if elem.tag in self.categories:
-                self.categories[elem.tag].add_entry(elem)
-
-    def __getattr__(self, name: str) -> CoTCatManager:
-        # Access categories as attributes
-        if name in self.categories: return self.categories[name]
-        raise AttributeError(f"No category '{name}'")
-
-class ATAKClient:
-    def __init__(self, callsign: str, cottype: str = "a-f-U", is_self: bool = False):
-        self.self = is_self
-        self.callsign = callsign
-        self.cottype = cottype
-        xuid = str(uuid.uuid4()).split("-")
-        self.uid = f"PYTAK-{str(xuid[3]) + str(xuid[4])}"
-        self.takv = {"version": "5.2.0.8", 'platform': "ATAK-CIV", 'device': "PC", 'os': '33'}
-        self.groups = {}
-        self.pos = {}
-        self.xmppusername = None
-
-    # Well-defined functions
-    def geochat(self, msg, dest=None, to_team=None, pos=None):
-        if to_team is not None and not dest:
-            to_callsign = to_team
-            to_uid = to_team
-        elif not to_team and dest is not None:
-            to_callsign = dest.callsign
-            to_uid = dest.uid
-        else:
-            return
-        my_callsign = self.callsign
-        my_uid = self.uid
-        my_cottype = self.cottype
-        msg_cottype = 'b-t-f'
-        msguid = str(uuid.uuid4())
-        chat_parent = "TeamGroups" if to_team is not None else 'RootContactGroup'
-        cot = ET.Element('event')
-        cot.set('version', '2.0')
-        cot.set('uid', f"GeoChat.{my_uid}.{to_uid}.{msguid}")
-        cot.set('type', msg_cottype)
-        cot.set('time', generate_cot_time())
-        cot.set('start', generate_cot_time())
-        cot.set('stale', generate_cot_time(60))
-        cot.set('how', 'm-g')
-        if pos:
-            point = ET.SubElement(cot, 'point')
-            point.set('lat', str(pos["lat"]))
-            point.set('lon', str(pos["lon"]))
-            point.set('hae', str(pos["alt"]))
-            point.set('ce', str(pos["ce"]))
-            point.set('le', str(pos["le"]))
-        detail = ET.SubElement(cot, 'detail')
-        takv = ET.SubElement(detail, 'takv')
-        for i in self.takv: takv.set(i, self.takv[i])
-        chat = ET.SubElement(detail, '__chat')
-        chat.set('parent', chat_parent)
-        chat.set('groupOwner', 'false')
-        chat.set('messageId', str(uuid.uuid4()))
-        chat.set('chatroom', to_callsign)
-        chat.set('id', to_uid)
-        chat.set('senderCallsign', my_callsign)
-        chatgrp = ET.SubElement(chat, 'chatgrp')
-        chatgrp.set('uid0', my_uid)
-        chatgrp.set('uid1', to_uid)
-        chatgrp.set('id', to_uid)
-        link = ET.SubElement(detail, 'link')
-        link.set('uid', my_uid)
-        link.set('type', my_cottype)
-        link.set('relation', 'p-p')
-        remarks = ET.SubElement(detail, 'remarks')
-        remarks.set('source', f'BAO.F.ATAK.{my_uid}')
-        remarks.set('to', to_uid)
-        remarks.set('time', generate_cot_time())
-        remarks.text = msg
-        marti = ET.SubElement(detail, 'marti')
-        dest = ET.SubElement(marti, 'dest')
-        dest.set('callsign', to_callsign)
-        return ET.tostring(cot)
-
-    def cot_marker(self, callsign, uid, cottype, pos, iconpath=None):
-        cot = ET.Element('event')
-        cot.set('version', '2.0')
-        cot.set('uid', uid)
-        cot.set('type', cottype)
-        cot.set('time', generate_cot_time())
-        cot.set('start', generate_cot_time())
-        cot.set('stale', generate_cot_time(60))
-        cot.set('how', "h-g-i-g-o")
-        point = ET.SubElement(cot, 'point')
-        point.set('lat', str(pos["lat"]))
-        point.set('lon', str(pos["lon"]))
-        point.set('hae', str(pos["alt"]))
-        point.set('ce', str(pos["ce"]))
-        point.set('le', str(pos["le"]))
-        detail = ET.SubElement(cot, 'detail')
-        takv = ET.SubElement(detail, 'takv')
-        for i in self.takv: takv.set(i, self.takv[i])
-        if iconpath:
-            usericon = ET.SubElement(detail, "usericon")
-            usericon.set('iconsetpath', iconpath)
-        contact = ET.SubElement(detail, 'contact')
-        contact.set('callsign', callsign)
-        color = ET.SubElement(detail, 'color')
-        color.set('argb', "-1")
-        precisionlocation = ET.SubElement(detail, 'precisionlocation')
-        precisionlocation.set('altsrc', "SRTM1")
-        link = ET.SubElement(detail, 'link')
-        link.set('uid', self.uid)
-        link.set('type', self.cottype)
-        link.set('parent_callsign', self.callsign)
-        link.set('production_time', generate_cot_time())
-        link.set('relation', 'p-p')
-        return ET.tostring(cot)
 
 # Incomplete, inflexible Parse Function
 def parse_cot_xml(cot_xml):
@@ -494,43 +497,3 @@ def parse_cot_xml(cot_xml):
         'battery': int(status.get('battery'))
     }
     return event_info, point_info, detail_info
-
-# Usage Example
-if __name__ == "__main__":
-    # Category management
-    cot_manager = CoTTypes("CoTtypes.xml")
-    for i, level in enumerate(["a", "a-.", "a-.-G", "a-.-G-U", "a-.-G-U-C"]):
-        print(f"{i}: {cot_manager.cot.get_subcategories(level)}")
-
-    # Name and code lookups
-    print(cot_manager.cot.get_full_name("b-w-A-P-F-C-U"))
-    print(cot_manager.cot.find_code("HIGH PRESSURE CENTER"))
-
-    # Event creation and serialization
-    event = Event(
-        point=Point(latitude=32.0, longitude=-117.0, height_above_ellipsoid=0.0, circular_error=10.0, linear_error=10.0),
-        event_type="a-f-G",
-        how="m-g",
-        unique_id="test123"
-    )
-
-    print(cot_to_xml(event))
-    print(event.to_json())
-
-    # Conversion examples
-    print(convert_2525b_to_cot("SHGPUCIZ----"))
-    print(convert_2525b_to_cot("S-GPUCIZ----"))
-    print(convert_cot_to_2525b("a-h-G-U-C-I-Z"))
-    print(convert_cot_to_2525b("a-.-G-U-C-I-Z"))
-
-    # ATAK client usage
-    client = ATAKClient("TestUser")
-    pos = {"lat": 32.0, "lon": -117.0, "alt": 0.0, "ce": 10.0, "le": 10.0}
-    print(client.geochat("Hello", to_team="Team1", pos=pos).decode())
-
-    uava = "S*APMHR-----"
-    uav1 = convert_2525b_to_cot(uava)
-    print(uav1)
-    print(cot_manager.cot.get_full_name(uav1))
-    uav2 = convert_cot_to_2525b(uav1)
-    print(uav2)
