@@ -10,7 +10,7 @@ with open("README.md", "r") as fh:
 setup(
     name="frogcot",
     packages=[package for package in find_packages()],
-    version="1.0",
+    version="1.1",
     license="GPL",
     description="My Cursor-on-Target library",
     long_description=long_description,
@@ -19,6 +19,7 @@ setup(
     author_email="",
     url="https://github.com/xznhj8129/frogcot",
     download_url="",
+    include_package_data=True,
     keywords=['cursor-on-target', 'xml','atak','geo','cot'],
     install_requires=['geographiclib','mgrs','geojson'],
     classifiers=[
