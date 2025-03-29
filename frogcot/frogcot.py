@@ -58,6 +58,8 @@ class CoTCatManager:
             desc = self.code_to_info.get(child_code, {}).get('desc') or self.code_to_info.get(key, {}).get('desc')
             if desc:
                 result.append({"cottype": child_code, "desc": desc})
+            else:
+                result.append({"cottype": child_code, "desc": key})
         return result
 
     def find_code(self, description: str) -> Optional[str]:
@@ -268,39 +270,46 @@ def get_tasking(cot_type: str) -> Optional[str]:
     if re.match("^t-", cot_type): return "tasking"
     return None
 
+cot_atom_factions = {
+    "f": "friendly", 
+    "h": "hostile", 
+    "u": "unknown", 
+    "p": "pending",
+    "a": "assumed", 
+    "n": "neutral", 
+    "s": "suspect", 
+    "j": "joker",
+    "k": "faker"
+}
+
+cot_dimensions = {
+    "A": "airborne", 
+    "G": "ground", 
+    "S": "surface/sea", 
+    "U": "subsurface"
+}
+
 def get_affiliation(cot_type: str) -> Optional[str]:
     # Extract affiliation from CoT type
     if re.match("^t-", cot_type): return get_tasking(cot_type)
-    affiliation_map = {
-        "^a-f-": "friendly", 
-        "^a-h-": "hostile", 
-        "^a-u-": "unknown", 
-        "^a-p-": "pending",
-        "^a-a-": "assumed", 
-        "^a-n-": "neutral", 
-        "^a-s-": "suspect", 
-        "^a-j-": "joker",
-        "^a-k-": "faker"
-    }
+    affiliation_map = {}
+    for i in cot_atom_factions:
+        affiliation_map[f"^a-{i}-"] = cot_atom_factions[i]
     for pattern, aff in affiliation_map.items():
         if re.match(pattern, cot_type): return aff
     return None
 
 def get_battle_dimension(cot_type: str) -> Optional[str]:
-    # Extract battle dimension from CoT type
-    dimension_map = {
-        "^a-.-A": "airborne", 
-        "^a-.-G": "ground", 
-        "^a-.-G-I": "installation",
-        "^a-.-S": "surface/sea", 
-        "^a-.-U": "subsurface"
-    }
+    # wtf is this;;;;  Extract battle dimension from CoT type
+    dimension_map = {}
+    for i in cot_dimensions:
+        dimension_map[f"^a-.-{i}"] = cot_dimensions[i]
     for pattern, dim in dimension_map.items():
         if re.match(pattern, cot_type): return dim
     return None
 
 def parse_type(cot_type: str) -> Optional[str]:
-    # Parse specific CoT type details
+    # wtf is this;;;; Parse specific CoT type details
     type_map = {
         "^a-.-G-I": "installation", 
         "^a-.-G-E-V": "vehicle", 
