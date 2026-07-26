@@ -10,7 +10,7 @@ with open("README.md", "r") as fh:
 setup(
     name="frogcot",
     packages=[package for package in find_packages()],
-    version="1.1",
+    version="1.2.0",
     license="GPL",
     description="My Cursor-on-Target library",
     long_description=long_description,
