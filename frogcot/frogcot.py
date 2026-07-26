@@ -213,8 +213,12 @@ class ATAKClient:
 
 # Utility Functions
 def generate_cot_time(offset_seconds: float = 0) -> str:
-    # Generate ISO8601 timestamp offset from UTC now
-    return (datetime.datetime.utcnow() + datetime.timedelta(seconds=offset_seconds)).replace(tzinfo=pytz.utc).isoformat()
+    # Generate a Z-suffixed UTC timestamp offset from now.
+    cot_time = (
+        datetime.datetime.now(datetime.timezone.utc)
+        + datetime.timedelta(seconds=offset_seconds)
+    )
+    return cot_time.strftime("%Y-%m-%dT%H:%M:%S.%fZ")
 
 # CoT and MIL-STD-2525 Conversion Functions (Standalone)
 def convert_cot_to_2525b(cot_type: str) -> str:
