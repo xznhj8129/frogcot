@@ -211,6 +211,47 @@ class ATAKClient:
         link.set('relation', 'p-p')
         return ET.tostring(cot)
 
+    def pli(
+        self,
+        pos,
+        endpoint="*:-1:stcp",
+        group_name="Cyan",
+        group_role="Team Member",
+        battery=100,
+    ):
+        cot = ET.Element('event')
+        cot.set('version', '2.0')
+        cot.set('uid', self.uid)
+        cot.set('type', 'a-f-G-U-C')
+        cot.set('time', generate_cot_time())
+        cot.set('start', generate_cot_time())
+        cot.set('stale', generate_cot_time(60))
+        cot.set('how', 'm-g')
+        point = ET.SubElement(cot, 'point')
+        point.set('lat', str(pos["lat"]))
+        point.set('lon', str(pos["lon"]))
+        point.set('hae', str(pos["alt"]))
+        point.set('ce', str(pos["ce"]))
+        point.set('le', str(pos["le"]))
+        detail = ET.SubElement(cot, 'detail')
+        takv = ET.SubElement(detail, 'takv')
+        for key, value in self.takv.items():
+            takv.set(key, value)
+        contact = ET.SubElement(detail, 'contact')
+        contact.set('callsign', self.callsign)
+        contact.set('endpoint', endpoint)
+        uid = ET.SubElement(detail, 'uid')
+        uid.set('Droid', self.callsign)
+        precisionlocation = ET.SubElement(detail, 'precisionlocation')
+        precisionlocation.set('altsrc', 'GPS')
+        precisionlocation.set('geopointsrc', 'GPS')
+        group = ET.SubElement(detail, '__group')
+        group.set('name', group_name)
+        group.set('role', group_role)
+        status = ET.SubElement(detail, 'status')
+        status.set('battery', str(battery))
+        return ET.tostring(cot)
+
 # Utility Functions
 def generate_cot_time(offset_seconds: float = 0) -> str:
     # Generate a Z-suffixed UTC timestamp offset from now.
