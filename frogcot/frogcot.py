@@ -192,8 +192,6 @@ class ATAKClient:
         point.set('ce', str(pos["ce"]))
         point.set('le', str(pos["le"]))
         detail = ET.SubElement(cot, 'detail')
-        takv = ET.SubElement(detail, 'takv')
-        for i in self.takv: takv.set(i, self.takv[i])
         if iconpath:
             usericon = ET.SubElement(detail, "usericon")
             usericon.set('iconsetpath', iconpath)
