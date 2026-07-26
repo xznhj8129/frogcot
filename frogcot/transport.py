@@ -23,12 +23,14 @@ class PersistentCoTClient:
         ca: str,
         client_certificate: str,
         client_key: str,
+        server_hostname: Optional[str] = None,
     ):
         self.host = host
         self.port = port
         self.ca = ca
         self.client_certificate = client_certificate
         self.client_key = client_key
+        self.server_hostname = host if server_hostname is None else server_hostname
         self._socket: Optional[ssl.SSLSocket] = None
         self._buffer = bytearray()
         self._events: Deque[bytes] = deque()
@@ -51,7 +53,10 @@ class PersistentCoTClient:
 
         raw_socket = socket.create_connection((self.host, self.port))
         try:
-            tls_socket = context.wrap_socket(raw_socket, server_hostname=self.host)
+            tls_socket = context.wrap_socket(
+                raw_socket,
+                server_hostname=self.server_hostname,
+            )
         except BaseException:
             raw_socket.close()
             raise

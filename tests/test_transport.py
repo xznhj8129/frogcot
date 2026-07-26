@@ -46,11 +46,12 @@ class PersistentCoTClientTest(unittest.TestCase):
         context.wrap_socket.return_value = tls_socket
         create_connection_mock.return_value = raw_socket
         client = PersistentCoTClient(
-            "tak.example",
+            "127.0.0.1",
             8089,
             "ca.pem",
             "client.pem",
             "client.key",
+            server_hostname="opentakserver",
         )
 
         client.connect()
@@ -63,10 +64,10 @@ class PersistentCoTClientTest(unittest.TestCase):
             certfile="client.pem",
             keyfile="client.key",
         )
-        create_connection_mock.assert_called_once_with(("tak.example", 8089))
+        create_connection_mock.assert_called_once_with(("127.0.0.1", 8089))
         context.wrap_socket.assert_called_once_with(
             raw_socket,
-            server_hostname="tak.example",
+            server_hostname="opentakserver",
         )
         self.assertTrue(client.connected)
 
