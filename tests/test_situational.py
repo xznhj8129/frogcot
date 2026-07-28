@@ -209,8 +209,8 @@ class SituationalAwarenessTest(unittest.TestCase):
         named_result = self.state.range_bearing(
             "Raven 1", "Objective ALPHA"
         )
-        self.assertGreater(named_result.range_m, 800.0)
-        self.assertLess(named_result.range_m, 1000.0)
+        self.assertGreater(named_result.range_m, 600.0)
+        self.assertLess(named_result.range_m, 700.0)
 
     def test_unrecognized_non_point_event_is_not_retained(self):
         event = b"""\

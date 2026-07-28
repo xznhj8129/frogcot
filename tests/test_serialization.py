@@ -1,6 +1,7 @@
 import re
 import unittest
 import xml.etree.ElementTree as ET
+from unittest.mock import patch
 
 import frogcot
 
@@ -69,6 +70,39 @@ class SerializationTest(unittest.TestCase):
             },
         )
         self.assertRegex(link.get("production_time"), self.COT_TIME_PATTERN)
+
+    def test_marker_uses_requested_stale_time(self):
+        client = frogcot.ATAKClient("sender")
+        position = {
+            "lat": 36.530440,
+            "lon": -83.216383,
+            "alt": 3,
+            "ce": 4,
+            "le": 5,
+        }
+
+        with patch(
+            "frogcot.frogcot.generate_cot_time",
+            return_value="timestamp",
+        ) as generate_time:
+            client.cot_marker(
+                "marker",
+                "marker-1",
+                "a-f-G",
+                position,
+                staletime=120,
+            )
+
+        generate_time.assert_any_call(120)
+
+    def test_xml_to_cot_accepts_decimal_version(self):
+        event = frogcot.xml_to_cot(
+            '<event version="2.0" type="a-f-G" how="m-g">'
+            '<point lat="36.530440" lon="-83.216383" hae="3" ce="4" le="5"/>'
+            '</event>'
+        )
+
+        self.assertEqual(event.version, 2)
 
     def test_pli_user_presence_fields_and_defaults(self):
         client = frogcot.ATAKClient("sender")

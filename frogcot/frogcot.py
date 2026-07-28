@@ -176,14 +176,14 @@ class ATAKClient:
         dest.set('callsign', to_callsign)
         return ET.tostring(cot)
 
-    def cot_marker(self, callsign, uid, cottype, pos, iconpath=None):
+    def cot_marker(self, callsign, uid, cottype, pos, iconpath=None, staletime=60):
         cot = ET.Element('event')
         cot.set('version', '2.0')
         cot.set('uid', uid)
         cot.set('type', cottype)
         cot.set('time', generate_cot_time())
         cot.set('start', generate_cot_time())
-        cot.set('stale', generate_cot_time(60))
+        cot.set('stale', generate_cot_time(staletime))
         cot.set('how', "h-g-i-g-o")
         point = ET.SubElement(cot, 'point')
         point.set('lat', str(pos["lat"]))
@@ -457,7 +457,7 @@ class Event:
 # CoT Parsing and Writing Functions (Replaces CoTHandler)
 def xml_to_cot(xml_input: str) -> Event:
     # Parse CoT XML from string into an Event object
-    data = xmltodict.parse(xml_input).get('event', {})
+    data = xmltodict.parse(xml_input).get('event')
     point_data = data.get('point', {})
     if not isinstance(point_data, dict):
         raise ValueError("Missing 'point' in XML")
@@ -483,18 +483,24 @@ def xml_to_cot(xml_input: str) -> Event:
     detail = data.get('detail')
     if isinstance(detail, dict): detail = dict(detail)
 
+    version_value = data.get('@version', 2)
+    try:
+        version_int = int(float(version_value))
+    except (TypeError, ValueError):
+        version_int = 2
+
     return Event(
         point=point,
         detail=detail,
-        version=int(data.get('@version', 2)),
-        event_type=data.get('@type', ''),
+        version=version_int,
+        event_type=data.get('@type'),
         access=data.get('@access'),
         quality_of_service=data.get('@qos'),
         unique_id=data.get('@uid', str(uuid.uuid4())),
         time=safe_datetime(data.get('@time')),
         start=safe_datetime(data.get('@start')),
         stale=safe_datetime(data.get('@stale')),
-        how=data.get('@how', '')
+        how=data.get('@how')
     )
 
 def cot_to_xml(event: Event) -> str:
