@@ -21,7 +21,14 @@ setup(
     download_url="",
     include_package_data=True,
     keywords=['cursor-on-target', 'xml','atak','geo','cot'],
-    install_requires=['geographiclib','mgrs','geojson'],
+    install_requires=[
+        'geographiclib',
+        'mgrs',
+        'geojson',
+        'xmltodict',
+        'pytz',
+        'python-dateutil',
+    ],
     classifiers=[
           'Development Status :: 4 - Beta',
           'Intended Audience :: Developers',
