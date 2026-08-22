@@ -512,9 +512,9 @@ def cot_to_xml(event: Event) -> str:
             '@access': event.access,
             '@qos': event.quality_of_service,
             '@uid': event.unique_id,
-            '@time': event.time.isoformat() if event.time else None,
-            '@start': event.start.isoformat() if event.start else None,
-            '@stale': event.stale.isoformat() if event.stale else None,
+            '@time': _cot_datetime(event.time),
+            '@start': _cot_datetime(event.start),
+            '@stale': _cot_datetime(event.stale),
             '@how': event.how,
             'point': {
                 '@lat': str(event.point.latitude),
@@ -527,6 +527,17 @@ def cot_to_xml(event: Event) -> str:
     }
     if event.detail: event_dict['event']['detail'] = event.detail
     return xmltodict.unparse(event_dict, pretty=True)
+
+
+def _cot_datetime(value: Optional[datetime.datetime]) -> Optional[str]:
+    """Serialize a CoT datetime as UTC with the protocol's required Z suffix."""
+    if value is None:
+        return None
+    if value.tzinfo is None:
+        value = value.replace(tzinfo=datetime.timezone.utc)
+    else:
+        value = value.astimezone(datetime.timezone.utc)
+    return value.strftime("%Y-%m-%dT%H:%M:%S.%fZ")
 
 
 # Incomplete, inflexible Parse Function

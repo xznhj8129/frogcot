@@ -107,7 +107,13 @@ class PersistentCoTClient:
             if not readable:
                 return None
 
-            chunk = tls_socket.recv(65536)
+            try:
+                chunk = tls_socket.recv(65536)
+            except TimeoutError:
+                # The connect timeout may still be attached to the TLS socket.
+                # An idle read satisfies receive()'s documented timeout
+                # contract; it is not a broken TAK connection.
+                return None
             if not chunk:
                 self.close()
                 raise ConnectionError("CoT TLS connection closed by peer")
