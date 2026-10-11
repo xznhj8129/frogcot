@@ -1,9 +1,9 @@
 # frogcot
 CoT Library
 
-## Persistent TLS transport
+## Persistent TCP/TLS transport
 
-`PersistentCoTClient` keeps one mutually authenticated TLS connection open. Its
+`PersistentCoTClient` keeps one TCP or mutually authenticated TLS connection open. Its
 `receive(timeout)` method uses `select` and returns a complete CoT `<event>` as
 bytes as soon as one is available, or `None` when the timeout expires.
 
@@ -18,6 +18,9 @@ client.send(b'<event version="2.0" uid="example"></event>')
 event = client.receive(timeout=1.0)
 client.close()
 ```
+
+For certificate-free TCP, use `PersistentCoTClient("tak.example", 8087, tls=False)`.
+TLS remains the default and requires CA, client certificate, and key. TCP is unencrypted.
 
 ## Live situational awareness
 
@@ -46,7 +49,7 @@ print(solution.range_m, solution.bearing_deg)  # metres, degrees true
 print(state.chats[-1].sender, state.chats[-1].room, state.chats[-1].text)
 
 # Coordinates can also be supplied directly as GeoPoint or (latitude, longitude).
-from_here = state.range_bearing(GeoPoint(36.5165, -79.38), marker)
+from_here = state.range_bearing(GeoPoint(36.530440, -83.216383), marker)
 ```
 
 PLI types beginning with `a-f-G` are contacts. GeoChat type `b-t-f` is parsed

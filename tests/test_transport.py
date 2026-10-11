@@ -64,7 +64,7 @@ class PersistentCoTClientTest(unittest.TestCase):
             certfile="client.pem",
             keyfile="client.key",
         )
-        create_connection_mock.assert_called_once_with(("127.0.0.1", 8089))
+        create_connection_mock.assert_called_once_with(("127.0.0.1", 8089), timeout=None)
         context.wrap_socket.assert_called_once_with(
             raw_socket,
             server_hostname="opentakserver",
